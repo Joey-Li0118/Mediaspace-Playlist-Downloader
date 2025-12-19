@@ -12,6 +12,7 @@ source .venv/bin/activate
 ```
 pip install -r requirements.txt
 ```
+In addition, install ffmpeg through https://www.ffmpeg.org/download.html
 
 3. Create your own .env file with this information
 
