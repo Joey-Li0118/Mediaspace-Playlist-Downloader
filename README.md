@@ -26,3 +26,9 @@ PLAYLISTURL = <playlist url>
 ```
 python mediaspace.py
 ```
+
+5. Run download.py when ready to download the videos
+
+```
+python download.py
+```
