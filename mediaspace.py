@@ -12,7 +12,7 @@ PASSWORD = os.getenv("PASSWORD")
 PLAYLISTURL = os.getenv("PLAYLISTURL")
 with sync_playwright() as p:
 
-    browser = p.chromium.launch(headless = False)
+    browser = p.chromium.launch(headless = True)
     if not os.path.exists("website1.json"):
         context = browser.new_context()
         page = context.new_page()
