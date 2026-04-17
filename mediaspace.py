@@ -12,17 +12,18 @@ PASSWORD = os.getenv("PASSWORD")
 PLAYLISTURL = os.getenv("PLAYLISTURL")
 with sync_playwright() as p:
 
-    browser = p.chromium.launch(headless = True)
+    browser = p.chromium.launch(headless = False)
     if not os.path.exists("website1.json"):
         context = browser.new_context()
         page = context.new_page()
         page.goto(PLAYLISTURL)
     
     ############ SIGNING IN WHEN LOGIN EXPIRES
-        page.get_by_label('NetID@illinois.edu').fill(EMAIL)
-        page.get_by_role("button", name="Next").click()
-        page.get_by_label('Password').fill(PASSWORD)
-        page.get_by_role("button", name="Sign in").click()
+        if page.get_by_label('NetID@illinois.edu').is_visible(timeout=3000):
+            print("logging in")
+            page.get_by_role("button", name="Next").click()
+            page.get_by_label('Password').fill(PASSWORD)
+            page.get_by_role("button", name="Sign in").click()
 
     ############ CREATING NEW STATE 
         context.storage_state(path="website1.json")
@@ -32,6 +33,7 @@ with sync_playwright() as p:
         page.goto(PLAYLISTURL)
 
     time.sleep(10)
+    print("Gathering Videos In The Playlist....")
     while True:
         # Count current items
         curr_count = page.locator(".galleryItem").count()
